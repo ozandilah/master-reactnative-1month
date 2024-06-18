@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { FlatList, StyleSheet, View } from "react-native";
-import DayListItem from "../components/core/DayListItem";
+import DayListItem from "@components/core/DayListItem";
 
 const days = [...Array(25)].map((val, index) => index + 1);
 export default function HomeScreen() {
