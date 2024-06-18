@@ -1,24 +1,18 @@
-import { StatusBar } from "expo-status-bar";
-import {
-  ActivityIndicator,
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-} from "react-native";
-import DayListItem from "./src/components/core/DayListItem";
-import { useFonts, Inter_900Black } from "@expo-google-fonts/inter";
 import {
   AmaticSC_400Regular,
   AmaticSC_700Bold,
 } from "@expo-google-fonts/amatic-sc";
+import { Inter_900Black, useFonts } from "@expo-google-fonts/inter";
 import * as SplashScreen from "expo-splash-screen";
+import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
+import { FlatList, StyleSheet, View } from "react-native";
+import DayListItem from "../components/core/DayListItem";
 
 // splashscreen disini dia itu menyembunyikan screen berikut nya atau datanya di sembunyikan
 SplashScreen.preventAutoHideAsync();
 const days = [...Array(25)].map((val, index) => index + 1);
-export default function App() {
+export default function HomeScreen() {
   const [fontLoaded, fontError] = useFonts({
     Inter: Inter_900Black,
     Amatic: AmaticSC_400Regular,
