@@ -1,3 +1,5 @@
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+
 import {
   AmaticSC_400Regular,
   AmaticSC_700Bold,
@@ -34,8 +36,10 @@ export default function RootLayout() {
     return null;
   }
   return (
-    <Stack screenOptions={{}}>
-      <Stack.Screen name="index" options={{ title: "Kang Ozan" }} />
-    </Stack>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <Stack screenOptions={{}}>
+        <Stack.Screen name="index" options={{ title: "Kang Ozan" }} />
+      </Stack>
+    </GestureHandlerRootView>
   );
 }
