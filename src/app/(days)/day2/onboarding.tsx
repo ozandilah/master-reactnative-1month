@@ -8,24 +8,26 @@ import {
   Gesture,
   GestureDetector,
 } from "react-native-gesture-handler";
-
+import Animated, {
+  FadeIn,
+  FadeOut,
+  SlideInRight,
+  SlideOutLeft,
+} from "react-native-reanimated";
 const onBoardingSteps = [
   {
-    id: 1,
     icon: "hand-holding-heart",
     title: "Donate for Palestine",
     description:
       "Help our brothers and sisters in Palestine by donating through this app. Every contribution you make is highly meaningful.",
   },
   {
-    id: 2,
     icon: "chart-line",
     title: "Track Donations",
     description:
       "Monitor the progress of your donations and see how your contributions are making a positive impact on the Palestinian community.",
   },
   {
-    id: 3,
     icon: "hands-helping",
     title: "Join the Community",
     description:
@@ -73,7 +75,7 @@ export default function OnBoardingScreen() {
       <Stack.Screen options={{ headerShown: false }} />
       <StatusBar style="light" />
       <GestureDetector gesture={swipes}>
-        <View style={styles.pageContent}>
+        <View style={styles.pageContent} key={screenIndex}>
           <View style={styles.stepIndicatorContainer}>
             {onBoardingSteps.map((step, index) => (
               <View
@@ -83,19 +85,33 @@ export default function OnBoardingScreen() {
                     backgroundColor: index === screenIndex ? "#CEF202" : "gray",
                   },
                 ]}
-                key={step.id}
+                key={index}
               />
             ))}
           </View>
-          <FontAwesome5
-            style={styles.image}
-            name={data.icon}
-            size={100}
-            color="#CEF202"
-          />
+          <Animated.View entering={FadeIn} exiting={FadeOut}>
+            <FontAwesome5
+              style={styles.image}
+              name={data.icon}
+              size={150}
+              color="#CEF202"
+            />
+          </Animated.View>
           <View style={styles.footer}>
-            <Text style={styles.title}>{data.title}</Text>
-            <Text style={styles.description}>{data.description}</Text>
+            <Animated.Text
+              entering={SlideInRight}
+              exiting={SlideOutLeft}
+              style={styles.title}
+            >
+              {data.title}
+            </Animated.Text>
+            <Animated.Text
+              entering={SlideInRight.delay(50)}
+              exiting={SlideOutLeft}
+              style={styles.description}
+            >
+              {data.description}
+            </Animated.Text>
             <View style={styles.buttonsRow}>
               <Text onPress={endOnBoarding} style={styles.buttonText}>
                 Skip
@@ -122,7 +138,7 @@ const styles = StyleSheet.create({
   image: {
     alignSelf: "center",
     margin: 20,
-    marginTop: 50,
+    marginTop: 70,
   },
   title: {
     color: "#FDFDFD",
