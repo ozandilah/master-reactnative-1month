@@ -1,12 +1,11 @@
-import React from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Link } from "expo-router";
+import React from "react";
+import { Pressable, StyleSheet, Text } from "react-native";
 type Props = {
   day: number;
 };
 
 export default function DayListItem({ day }: Props) {
-  console.log(day);
   return (
     <Link href={`/day${day}`} asChild>
       <Pressable style={styles.box}>
