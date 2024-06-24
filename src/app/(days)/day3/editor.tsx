@@ -1,47 +1,81 @@
-import { View, Text, StyleSheet } from "react-native";
-import React from "react";
-import Markdown from "react-native-markdown-display";
-const copy = `# h1 Heading 8-)
+import MarkdownDisplay from "@/components/day3/MarkdownDisplay";
+import React, { useState } from "react";
+import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
+const template = `# Markdown Editor
 
-**This is some bold text!**
-
-This is normal text
-
-### h3 Subheading
-
-* Item 1
-* Item 2
-* Item 3
-
-#### h4 Sub-subheading
-
-This is a paragraph of text. It can be as long as you want it to be. It can also contain **bold** or *italic* text.
-
-##### h5 Sub-sub-subheading
-
-This is another paragraph of text. It can also contain **bold** or *italic* text.
-
-###### h6 Sub-sub-sub-subheading
-
-This is the last paragraph of text. It can also contain **bold** or *italic* text.
-
-\`\`\`javascript
-const helloWorld = () => {
-  console.log("Hello World");
-}
-\`\`\``;
+Hello **World**!
+`;
 
 const EditorScreen = () => {
+  const [content, setContent] = useState(template);
+  const [tab, setTab] = useState("edit");
   return (
     <View style={styles.page}>
-      <Markdown>{copy}</Markdown>
+      <View style={styles.tabsContainer}>
+        <Pressable
+          onPress={() => setTab("edit")}
+          style={[
+            styles.tab,
+            { borderColor: tab === "edit" ? "mediumorchid" : "gray" },
+          ]}
+        >
+          <Text style={styles.tabText}>Edit</Text>
+        </Pressable>
+        <Pressable
+          onPress={() => setTab("preview")}
+          style={[
+            styles.tab,
+            {
+              borderColor: tab === "preview" ? "mediumorchid" : "gray",
+            },
+          ]}
+        >
+          <Text style={styles.tabText}>Preview</Text>
+        </Pressable>
+      </View>
+      {tab === "edit" ? (
+        <TextInput
+          value={content}
+          onChangeText={setContent}
+          multiline
+          style={styles.input}
+        />
+      ) : (
+        <MarkdownDisplay>{content}</MarkdownDisplay>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   page: {
+    backgroundColor: "whitesmoke",
+    flex: 1,
+    padding: 10,
+    borderRadius: 10,
+  },
+  input: {
     backgroundColor: "white",
+    padding: 20,
+    paddingTop: 20,
+    borderRadius: 10,
+    fontSize: 16,
+  },
+  tabsContainer: {
+    flexDirection: "row",
+    gap: 10,
+    marginVertical: 10,
+  },
+  tab: {
+    flex: 1,
+    padding: 10,
+    borderColor: "gray ",
+    borderWidth: 2,
+    borderRadius: 10,
+    alignItems: "center",
+  },
+  tabText: {
+    fontFamily: "InterBold",
   },
 });
 
