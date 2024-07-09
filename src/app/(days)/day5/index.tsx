@@ -20,7 +20,7 @@ const AirBNBScreen = () => {
 
       <MarkdownDisplay>{description}</MarkdownDisplay>
 
-      <Link href="/day5_airbnb/airbnb" asChild>
+      <Link href="/day5/airbnb" asChild>
         <Button title="Go to AirBNB Maps" />
       </Link>
     </SafeAreaView>
