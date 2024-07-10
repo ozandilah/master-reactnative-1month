@@ -1,102 +1,102 @@
 [
-    {
-        "id": 1,
-        "latitude": -6.2088,
-        "longitude": 106.8456,
-        "price": 50,
-        "title": "Cozy Apartment in Central Jakarta",
-        "numberOfStars": 4.5,
-        "rating": 4.7,
-        "image": "https://via.placeholder.com/150"
-    },
-    {
-        "id": 2,
-        "latitude": -6.1745,
-        "longitude": 106.8227,
-        "price": 75,
-        "title": "Modern Apartment near Monas",
-        "numberOfStars": 4.7,
-        "rating": 4.8,
-        "image": "https://via.placeholder.com/150"
-    },
-    {
-        "id": 3,
-        "latitude": -6.2184,
-        "longitude": 106.8031,
-        "price": 60,
-        "title": "Stylish Studio in Kemang",
-        "numberOfStars": 4.6,
-        "rating": 4.6,
-        "image": "https://via.placeholder.com/150"
-    },
-    {
-        "id": 4,
-        "latitude": -6.2359,
-        "longitude": 106.8089,
-        "price": 90,
-        "title": "Luxury Condo with Pool",
-        "numberOfStars": 4.9,
-        "rating": 4.9,
-        "image": "https://via.placeholder.com/150"
-    },
-    {
-        "id": 5,
-        "latitude": -6.2012,
-        "longitude": 106.8197,
-        "price": 65,
-        "title": "Charming Apartment in Menteng",
-        "numberOfStars": 4.8,
-        "rating": 4.8,
-        "image": "https://via.placeholder.com/150"
-    },
-    {
-        "id": 6,
-        "latitude": -6.2559,
-        "longitude": 106.7943,
-        "price": 80,
-        "title": "Spacious Loft in South Jakarta",
-        "numberOfStars": 4.7,
-        "rating": 4.7,
-        "image": "https://via.placeholder.com/150"
-    },
-    {
-        "id": 7,
-        "latitude": -6.1818,
-        "longitude": 106.8381,
-        "price": 55,
-        "title": "Elegant Apartment near City Center",
-        "numberOfStars": 4.5,
-        "rating": 4.5,
-        "image": "https://via.placeholder.com/150"
-    },
-    {
-        "id": 8,
-        "latitude": -6.2397,
-        "longitude": 106.8022,
-        "price": 70,
-        "title": "Bright Apartment with City View",
-        "numberOfStars": 4.6,
-        "rating": 4.6,
-        "image": "https://via.placeholder.com/150"
-    },
-    {
-        "id": 9,
-        "latitude": -6.2146,
-        "longitude": 106.8062,
-        "price": 85,
-        "title": "Luxurious Penthouse in CBD",
-        "numberOfStars": 4.9,
-        "rating": 4.9,
-        "image": "https://via.placeholder.com/150"
-    },
-    {
-        "id": 10,
-        "latitude": -6.1893,
-        "longitude": 106.8445,
-        "price": 45,
-        "title": "Affordable Apartment in Tanah Abang",
-        "numberOfStars": 4.4,
-        "rating": 4.3,
-        "image": "https://via.placeholder.com/150"
-    }
+  {
+    "id": 1,
+    "latitude": -6.2088,
+    "longitude": 106.8456,
+    "price": 50,
+    "title": "Cozy Apartment in Central Jakarta",
+    "numberOfStars": 4.5,
+    "rating": 4.7,
+    "image": "https://images.pexels.com/photos/164595/pexels-photo-164595.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  },
+  {
+    "id": 2,
+    "latitude": -6.1745,
+    "longitude": 106.8227,
+    "price": 75,
+    "title": "Modern Apartment near Monas",
+    "numberOfStars": 4.7,
+    "rating": 4.8,
+    "image": "https://images.pexels.com/photos/271643/pexels-photo-271643.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  },
+  {
+    "id": 3,
+    "latitude": -6.2184,
+    "longitude": 106.8031,
+    "price": 60,
+    "title": "Stylish Studio in Kemang",
+    "numberOfStars": 4.6,
+    "rating": 4.6,
+    "image": "https://images.pexels.com/photos/271618/pexels-photo-271618.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  },
+  {
+    "id": 4,
+    "latitude": -6.2359,
+    "longitude": 106.8089,
+    "price": 90,
+    "title": "Luxury Condo with Pool",
+    "numberOfStars": 4.9,
+    "rating": 4.9,
+    "image": "https://images.pexels.com/photos/279746/pexels-photo-279746.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  },
+  {
+    "id": 5,
+    "latitude": -6.2012,
+    "longitude": 106.8197,
+    "price": 65,
+    "title": "Charming Apartment in Menteng",
+    "numberOfStars": 4.8,
+    "rating": 4.8,
+    "image": "https://images.pexels.com/photos/1743231/pexels-photo-1743231.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  },
+  {
+    "id": 6,
+    "latitude": -6.2559,
+    "longitude": 106.7943,
+    "price": 80,
+    "title": "Spacious Loft in South Jakarta",
+    "numberOfStars": 4.7,
+    "rating": 4.7,
+    "image": "https://images.pexels.com/photos/3634741/pexels-photo-3634741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  },
+  {
+    "id": 7,
+    "latitude": -6.1818,
+    "longitude": 106.8381,
+    "price": 55,
+    "title": "Elegant Apartment near City Center",
+    "numberOfStars": 4.5,
+    "rating": 4.5,
+    "image": "https://images.pexels.com/photos/5461582/pexels-photo-5461582.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  },
+  {
+    "id": 8,
+    "latitude": -6.2397,
+    "longitude": 106.8022,
+    "price": 70,
+    "title": "Bright Apartment with City View",
+    "numberOfStars": 4.6,
+    "rating": 4.6,
+    "image": "https://images.pexels.com/photos/622164/pexels-photo-622164.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  },
+  {
+    "id": 9,
+    "latitude": -6.2146,
+    "longitude": 106.8062,
+    "price": 85,
+    "title": "Luxurious Penthouse in CBD",
+    "numberOfStars": 4.9,
+    "rating": 4.9,
+    "image": "https://images.pexels.com/photos/4915547/pexels-photo-4915547.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  },
+  {
+    "id": 10,
+    "latitude": -6.1893,
+    "longitude": 106.8445,
+    "price": 45,
+    "title": "Affordable Apartment in Tanah Abang",
+    "numberOfStars": 4.4,
+    "rating": 4.3,
+    "image": "https://images.pexels.com/photos/1457845/pexels-photo-1457845.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  }
 ]
