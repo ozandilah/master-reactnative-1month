@@ -5,8 +5,14 @@ interface MarkerProps {
   apartment: any;
   onPress: () => void;
   containerStyle?: ViewStyle;
+  titleStyle?: ViewStyle;
 }
-const CustomMarker = ({ apartment, onPress, containerStyle }: MarkerProps) => {
+const CustomMarker = ({
+  apartment,
+  onPress,
+  containerStyle,
+  titleStyle,
+}: MarkerProps) => {
   return (
     <Marker
       onPress={onPress}
@@ -16,7 +22,7 @@ const CustomMarker = ({ apartment, onPress, containerStyle }: MarkerProps) => {
       }}
     >
       <View style={[styles.card, containerStyle]}>
-        <Text style={{ fontFamily: "InterBold" }}>Rp {apartment.price}K</Text>
+        <Text style={[styles.title, titleStyle]}>Rp {apartment.price}K</Text>
       </View>
     </Marker>
   );
@@ -30,6 +36,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "gray",
     borderRadius: 20,
+  },
+  title: {
+    fontFamily: "InterBold",
   },
 });
 export default CustomMarker;

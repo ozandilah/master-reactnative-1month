@@ -44,7 +44,18 @@ export default function AirbnbScreen() {
             containerStyle={{
               borderColor:
                 selectedApartment && selectedApartment.id === apartment.id
-                  ? "red"
+                  ? "white"
+                  : "gray",
+
+              backgroundColor:
+                selectedApartment && selectedApartment.id === apartment.id
+                  ? "#ff0050"
+                  : "white",
+            }}
+            titleStyle={{
+              color:
+                selectedApartment && selectedApartment.id === apartment.id
+                  ? "white"
                   : undefined,
             }}
           />
