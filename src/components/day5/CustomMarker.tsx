@@ -1,13 +1,17 @@
 import { View, Text } from "react-native";
 import React from "react";
 import { Marker } from "react-native-maps";
-
-const CustomMarker = ({ appartment }: any) => {
+interface MarkerProps {
+  apartment: any;
+  onPress: () => void;
+}
+const CustomMarker = ({ apartment, onPress }: MarkerProps) => {
   return (
     <Marker
+      onPress={onPress}
       coordinate={{
-        latitude: appartment.latitude,
-        longitude: appartment.longitude,
+        latitude: apartment.latitude,
+        longitude: apartment.longitude,
       }}
     >
       <View
@@ -20,7 +24,7 @@ const CustomMarker = ({ appartment }: any) => {
           borderRadius: 20,
         }}
       >
-        <Text style={{ fontFamily: "InterBold" }}>Rp {appartment.price}K</Text>
+        <Text style={{ fontFamily: "InterBold" }}>Rp {apartment.price}K</Text>
       </View>
     </Marker>
   );
