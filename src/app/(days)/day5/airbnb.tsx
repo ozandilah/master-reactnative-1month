@@ -41,6 +41,12 @@ export default function AirbnbScreen() {
             apartment={apartment}
             key={apartment.id}
             onPress={() => setSelectedApartment(apartment)}
+            containerStyle={{
+              borderColor:
+                selectedApartment && selectedApartment.id === apartment.id
+                  ? "red"
+                  : undefined,
+            }}
           />
         ))}
       </MapView>
