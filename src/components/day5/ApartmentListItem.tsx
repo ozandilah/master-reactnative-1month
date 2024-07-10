@@ -1,7 +1,16 @@
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, ViewStyle } from "react-native";
 import React from "react";
+import apartments from "@/assets/data/day5_airbnb/appartments.json";
 
-const ApartmentListItem = ({ apartment }: any) => {
+interface ApartmentListProps {
+  apartment: (typeof apartments)[0];
+  containerStyle?: ViewStyle;
+}
+
+const ApartmentListItem = ({
+  apartment,
+  containerStyle,
+}: ApartmentListProps) => {
   //   const splitText = (text: string | any[], maxLength: number) => {
   //     let lines = [];
   //     for (let i = 0; i < text.length; i += maxLength) {
@@ -12,7 +21,7 @@ const ApartmentListItem = ({ apartment }: any) => {
   //   const titleLines = splitText(apartment.title, 18);
 
   return (
-    <View style={styles.card}>
+    <View style={[styles.card, containerStyle]}>
       <Image source={{ uri: apartment.image }} style={styles.image} />
       <View style={styles.rightContainer}>
         <Text style={styles.title}>{apartment.title}</Text>
@@ -34,10 +43,6 @@ const ApartmentListItem = ({ apartment }: any) => {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: "white",
-    position: "absolute",
-    bottom: 70,
-    left: 10,
-    right: 10,
     flexDirection: "row",
     borderRadius: 20,
     overflow: "hidden",
