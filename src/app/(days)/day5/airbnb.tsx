@@ -1,25 +1,31 @@
-import { View, Text, StyleSheet } from "react-native";
-import React, { useCallback, useMemo, useRef, useState } from "react";
-import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import { Stack } from "expo-router";
 import apartments from "@/assets/data/day5_airbnb/appartments.json";
-import CustomMarker from "@/components/day5/CustomMarker";
 import ApartmentListItem from "@/components/day5/ApartmentListItem";
+import CustomMarker from "@/components/day5/CustomMarker";
 import BottomSheet, {
-  BottomSheetView,
   BottomSheetFlatList,
+  BottomSheetView,
 } from "@gorhom/bottom-sheet";
-import { FlatList } from "react-native-gesture-handler";
+import { Stack } from "expo-router";
+import React, { useMemo, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import MapView, { PROVIDER_GOOGLE } from "react-native-maps";
 
 export default function AirbnbScreen() {
   const [selectedApartment, setSelectedApartment] = useState(null);
-  // ref
-  //   const bottomSheetRef = useRef<BottomSheet>(null);
-  // callbacks
-  const handleSheetChanges = useCallback((index: number) => {
-    console.log("handleSheetChanges", index);
-  }, []);
+  const [mapRegion, setMapRegion] = useState({
+    latitude: -6.2088,
+    longitude: 106.8456,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  });
 
+  const gestureHandler = () => ({
+    handleOnStart: () => {
+      console.log("Begin Pan");
+    },
+    handleOnActive: () => {},
+    handleOnEnv: () => {},
+  });
   const snapPoints = useMemo(() => [80, "25%", "50%", "90%"], []);
   return (
     <View>
@@ -27,12 +33,8 @@ export default function AirbnbScreen() {
       <MapView
         provider={PROVIDER_GOOGLE}
         style={styles.map}
-        initialRegion={{
-          latitude: -6.2088,
-          longitude: 106.8456,
-          latitudeDelta: 0.0922,
-          longitudeDelta: 0.0421,
-        }}
+        // initialRegion={}
+        region={mapRegion}
       >
         {apartments.map((apartment: any) => (
           <CustomMarker
@@ -59,11 +61,10 @@ export default function AirbnbScreen() {
       )}
 
       <BottomSheet
-        //   ref={bottomSheetRef}
         index={0}
         snapPoints={snapPoints}
-        // enablePanDownToClose
-        // onChange={handleSheetChanges}
+        onChange={(index) => console.log("on change Active : ", index)}
+        onAnimate={(from, to) => console.log("From : ", from + "To : ", to)}
       >
         <BottomSheetView style={styles.contentContainer}>
           <Text style={styles.listTitle}>Over {apartments.length} places</Text>
