@@ -12,6 +12,7 @@ Work with the microphone and audio playback
 📚 Today's Agenda :
 - Use Expo AV to record audios
 - Create an audio player
+- (Attemp) to build an audio Waveform animation
 `;
 
 const DayDetailScreens = () => {
