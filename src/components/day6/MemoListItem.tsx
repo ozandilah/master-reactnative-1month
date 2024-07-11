@@ -1,19 +1,74 @@
 import { View, Text, StyleSheet } from "react-native";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
+import { Sound } from "expo-av/build/Audio";
+import { AVPlaybackStatus, Audio } from "expo-av";
 
 interface MemoListProps {
   uri: string;
 }
 const MemoListItem = ({ uri }: MemoListProps) => {
-  const progres = 40;
+  const [sound, setSound] = useState<Sound>();
+  const [status, setStatus] = useState<AVPlaybackStatus>();
+
+  async function loadSound() {
+    console.log("Loading Sound");
+    const { sound } = await Audio.Sound.createAsync(
+      { uri },
+      undefined,
+      onPlayBackStatusUpdate
+    );
+    setSound(sound);
+  }
+  useEffect(() => {
+    loadSound();
+  }, [uri]);
+
+  async function onPlayBackStatusUpdate(status: AVPlaybackStatus) {
+    setStatus(status);
+    if (!status.isLoaded) {
+      return;
+    }
+    if (status.didJustFinish) {
+      await sound?.setStatusAsync({ positionMillis: 0 });
+    }
+  }
+
+  async function playSound() {
+    if (!sound) {
+      return;
+    }
+    console.log("Playing Sound");
+    await sound.playAsync();
+  }
+
+  useEffect(() => {
+    return sound
+      ? () => {
+          console.log("Unloading Sound");
+          sound.unloadAsync();
+        }
+      : undefined;
+  }, [sound]);
+
+  const isPlaying = status?.isLoaded ? status.isPlaying : false;
+  const position = status?.isLoaded ? status.positionMillis : 0;
+  const duration = status?.isLoaded ? status.durationMillis : 1;
+  const progres = position / duration;
   return (
     <View style={styles.container}>
-      <FontAwesome5 name={"play"} size={20} color={"gray"} />
+      <FontAwesome5
+        onPress={playSound}
+        name={isPlaying ? "pause" : "play"}
+        size={20}
+        color={"gray"}
+      />
 
       <View style={styles.playbackContainer}>
         <View style={styles.playbackBackground} />
-        <View style={[styles.playbackIndicator, { left: `${progres}%` }]} />
+        <View
+          style={[styles.playbackIndicator, { left: `${progres * 100}%` }]}
+        />
       </View>
     </View>
   );
