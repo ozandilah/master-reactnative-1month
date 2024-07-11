@@ -10,9 +10,8 @@ const description = `
 Work with the microphone and audio playback
 
 📚 Today's Agenda :
-- Use Memos
--
--
+- Use Expo AV to record audios
+- Create an audio player
 `;
 
 const DayDetailScreens = () => {
