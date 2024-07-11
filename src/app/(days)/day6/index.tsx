@@ -5,12 +5,14 @@ import { Button } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const description = `
-# AirBNB Maps Using React Native
+# Voice Memos
+
+Work with the microphone and audio playback
 
 📚 Today's Agenda :
-- Use Maps in React Native & Expo
-- Render Custom Markers On The Map
-- Use Bottom Sheet To Render a List of Items
+- Use Memos
+-
+-
 `;
 
 const DayDetailScreens = () => {
@@ -20,8 +22,8 @@ const DayDetailScreens = () => {
 
       <MarkdownDisplay>{description}</MarkdownDisplay>
 
-      <Link href="/day5/airbnb" asChild>
-        <Button title="Go to AirBNB Maps" />
+      <Link href="/day6/memos" asChild>
+        <Button title="Go to memos" />
       </Link>
     </SafeAreaView>
   );

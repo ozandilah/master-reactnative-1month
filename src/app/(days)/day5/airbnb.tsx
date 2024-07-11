@@ -19,13 +19,13 @@ export default function AirbnbScreen() {
     longitudeDelta: 0.0421,
   });
 
-  const gestureHandler = () => ({
-    handleOnStart: () => {
-      console.log("Begin Pan");
-    },
-    handleOnActive: () => {},
-    handleOnEnv: () => {},
-  });
+  //   const gestureHandler = () => ({
+  //     handleOnStart: () => {
+  //       console.log("Begin Pan");
+  //     },
+  //     handleOnActive: () => {},
+  //     handleOnEnv: () => {},
+  //   });
   const snapPoints = useMemo(() => [80, "25%", "50%", "90%"], []);
   return (
     <View>
@@ -44,7 +44,18 @@ export default function AirbnbScreen() {
             containerStyle={{
               borderColor:
                 selectedApartment && selectedApartment.id === apartment.id
-                  ? "red"
+                  ? "white"
+                  : "gray",
+
+              backgroundColor:
+                selectedApartment && selectedApartment.id === apartment.id
+                  ? "#ff0050"
+                  : "white",
+            }}
+            titleStyle={{
+              color:
+                selectedApartment && selectedApartment.id === apartment.id
+                  ? "white"
                   : undefined,
             }}
           />
@@ -69,8 +80,8 @@ export default function AirbnbScreen() {
       <BottomSheet
         index={0}
         snapPoints={snapPoints}
-        onChange={(index) => console.log("on change Active : ", index)}
-        onAnimate={(from, to) => console.log("From : ", from + "To : ", to)}
+        // onChange={(index) => console.log("on change Active : ", index)}
+        // onAnimate={(from, to) => console.log("From : ", from + "To : ", to)}
       >
         <BottomSheetView style={styles.contentContainer}>
           <Text style={styles.listTitle}>Over {apartments.length} places</Text>
