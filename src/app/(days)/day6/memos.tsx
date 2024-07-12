@@ -1,4 +1,4 @@
-import MemoListItem from "@/components/day6/MemoListItem";
+import MemoListItem, { Memo } from "@/components/day6/MemoListItem";
 import { Audio } from "expo-av";
 import { Recording } from "expo-av/build/Audio";
 import { useState } from "react";
@@ -7,39 +7,37 @@ import Animated, {
   interpolate,
   useAnimatedStyle,
   useSharedValue,
-  withSpring,
   withTiming,
 } from "react-native-reanimated";
 
 export default function MemosScreen() {
   const [recording, setRecording] = useState<Recording>();
-  const [memos, setMemos] = useState<string[]>([]);
+  const [memos, setMemos] = useState<Memo[]>([]);
 
+  const [audioMetering, setAudioMetering] = useState<number[]>([]);
   const metering = useSharedValue(-100);
-
-  const [permissionResponse, requestPermission] = Audio.usePermissions();
 
   async function startRecording() {
     try {
-      if (permissionResponse.status !== "granted") {
-        console.log("Requesting permission..");
-        await requestPermission();
-      }
+      setAudioMetering([]);
+
+      await Audio.requestPermissionsAsync();
       await Audio.setAudioModeAsync({
         allowsRecordingIOS: true,
         playsInSilentModeIOS: true,
       });
-
-      console.log("Starting recording..");
       const { recording } = await Audio.Recording.createAsync(
-        Audio.RecordingOptionsPresets.HIGH_QUALITY
+        Audio.RecordingOptionsPresets.HIGH_QUALITY,
+        undefined,
+        100
       );
       setRecording(recording);
-      console.log("Recording started");
 
       recording.setOnRecordingStatusUpdate((status) => {
-        console.log(status.metering);
-        metering.value = status.metering || -100;
+        if (status.metering) {
+          metering.value = status.metering;
+          setAudioMetering((curVal) => [...curVal, status.metering || -100]);
+        }
       });
     } catch (err) {
       console.error("Failed to start recording", err);
@@ -58,9 +56,12 @@ export default function MemosScreen() {
     });
     const uri = recording.getURI();
     console.log("Recording stopped and stored at", uri);
-
+    metering.value = -100;
     if (uri) {
-      setMemos((existingMemos) => [uri, ...existingMemos]);
+      setMemos((existingMemos) => [
+        { uri, metering: audioMetering },
+        ...existingMemos,
+      ]);
     }
   }
 
@@ -70,17 +71,28 @@ export default function MemosScreen() {
   }));
 
   const animatedRecordWave = useAnimatedStyle(() => {
-    const size = withSpring(
-      interpolate(metering.value, [-160, -60, 0], [0, 0, -100])
+    const size = withTiming(
+      interpolate(metering.value, [-160, -60, 0], [0, 0, -30]),
+      { duration: 100 }
     );
-    return { top: size, bottom: size, left: size, right: size };
+    return {
+      top: size,
+      bottom: size,
+      left: size,
+      right: size,
+      backgroundColor: `rgba(255, 45, 0, ${interpolate(
+        metering.value,
+        [-160, -60, -10],
+        [0.7, 0.3, 0.7]
+      )})`,
+    };
   });
 
   return (
     <View style={styles.container}>
       <FlatList
         data={memos}
-        renderItem={({ item }) => <MemoListItem uri={item} />}
+        renderItem={({ item }) => <MemoListItem memo={item} />}
       />
 
       <View style={styles.footer}>
