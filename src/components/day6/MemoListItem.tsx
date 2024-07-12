@@ -1,34 +1,39 @@
-import { View, Text, StyleSheet } from "react-native";
-import React, { useCallback, useEffect, useState } from "react";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
-import { Sound } from "expo-av/build/Audio";
 import { AVPlaybackStatus, Audio } from "expo-av";
-import { useAnimatedStyle, withTiming } from "react-native-reanimated";
-import Animated from "react-native-reanimated";
+import { Sound } from "expo-av/build/Audio";
+import React, { useCallback, useEffect, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import Animated, {
+  Extrapolation,
+  interpolate,
+  useAnimatedStyle,
+} from "react-native-reanimated";
 
-interface MemoListProps {
+export interface Memo {
   uri: string;
+  metering: number[];
 }
-const MemoListItem = ({ uri }: MemoListProps) => {
+const MemoListItem = ({ memo }: { memo: Memo }) => {
   const [sound, setSound] = useState<Sound>();
   const [status, setStatus] = useState<AVPlaybackStatus>();
 
   async function loadSound() {
-    console.log("Loading Sound");
     const { sound } = await Audio.Sound.createAsync(
-      { uri },
+      { uri: memo.uri },
       { progressUpdateIntervalMillis: 1000 / 60 },
-      onPlayBackStatusUpdate
+      onPlaybackStatusUpdate
     );
     setSound(sound);
   }
 
-  const onPlayBackStatusUpdate = useCallback(
+  const onPlaybackStatusUpdate = useCallback(
     async (newStatus: AVPlaybackStatus) => {
       setStatus(newStatus);
+
       if (!newStatus.isLoaded || !sound) {
         return;
       }
+
       if (newStatus.didJustFinish) {
         await sound?.setPositionAsync(0);
       }
@@ -38,7 +43,7 @@ const MemoListItem = ({ uri }: MemoListProps) => {
 
   useEffect(() => {
     loadSound();
-  }, [uri]);
+  }, [memo]);
 
   async function playSound() {
     if (!sound) {
@@ -74,8 +79,6 @@ const MemoListItem = ({ uri }: MemoListProps) => {
 
   const progress = position / duration;
 
-  console.log(progress);
-
   const animatedIndicatorStyle = useAnimatedStyle(() => ({
     left: `${progress * 100}%`,
     // withTiming(`${progress * 100}%`${progress * 100}%, {
@@ -84,6 +87,19 @@ const MemoListItem = ({ uri }: MemoListProps) => {
     // }),
   }));
 
+  //   membuat logic metering dibagi 3 lalu akan di rata-ratakan nilai nya
+  let numLines = 50;
+  let lines = [];
+  for (let i = 0; i < numLines; i++) {
+    const meteringIndex = Math.floor((i * memo.metering.length) / numLines);
+    const nextMeteringIndex = Math.ceil(
+      ((i + 1) * memo.metering.length) / numLines
+    );
+    const values = memo.metering.slice(meteringIndex, nextMeteringIndex);
+    const average = values.reduce((sum, a) => sum + a, 0) / values.length;
+    // lines.push(memo.metering[meteringIndex]);
+    lines.push(average);
+  }
   return (
     <View style={styles.container}>
       <FontAwesome5
@@ -94,10 +110,30 @@ const MemoListItem = ({ uri }: MemoListProps) => {
       />
 
       <View style={styles.playbackContainer}>
-        <View style={styles.playbackBackground} />
-        <Animated.View
+        {/* <View style={styles.playbackBackground} /> */}
+
+        <View style={styles.wave}>
+          {lines.map((db, index) => (
+            <View
+              style={[
+                styles.waveLine,
+                {
+                  height: interpolate(
+                    db,
+                    [-60, 0],
+                    [5, 50],
+                    Extrapolation.CLAMP
+                  ),
+                  backgroundColor:
+                    progress > index / lines.length ? "royalblue" : "gainsboro",
+                },
+              ]}
+            />
+          ))}
+        </View>
+        {/* <Animated.View
           style={[styles.playbackIndicator, animatedIndicatorStyle]}
-        />
+        /> */}
         <Text
           style={{
             position: "absolute",
@@ -137,7 +173,7 @@ const styles = StyleSheet.create({
   },
   playbackContainer: {
     flex: 1,
-    height: 50,
+    height: 80,
     justifyContent: "center",
   },
   playbackBackground: {
@@ -151,6 +187,17 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "royalblue",
     position: "absolute",
+  },
+  wave: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 3,
+  },
+  waveLine: {
+    flex: 1,
+    height: 30,
+    backgroundColor: "gainsboro",
+    borderRadius: 20,
   },
 });
 export default MemoListItem;
