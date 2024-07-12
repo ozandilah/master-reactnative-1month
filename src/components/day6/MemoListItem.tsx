@@ -24,20 +24,22 @@ const MemoListItem = ({ uri }: MemoListProps) => {
   }
 
   const onPlayBackStatusUpdate = useCallback(
-    async (status: AVPlaybackStatus) => {
-      setStatus(status);
-      if (!status.isLoaded || !sound) {
+    async (newStatus: AVPlaybackStatus) => {
+      setStatus(newStatus);
+      if (!newStatus.isLoaded || !sound) {
         return;
       }
-      if (status.didJustFinish) {
-        await sound.setPositionAsync(0);
+      if (newStatus.didJustFinish) {
+        await sound?.setPositionAsync(0);
       }
     },
     [sound]
   );
+
   useEffect(() => {
     loadSound();
   }, [uri]);
+
   async function playSound() {
     if (!sound) {
       return;
@@ -69,7 +71,10 @@ const MemoListItem = ({ uri }: MemoListProps) => {
   const isPlaying = status?.isLoaded ? status.isPlaying : false;
   const position = status?.isLoaded ? status.positionMillis : 0;
   const duration = status?.isLoaded ? status.durationMillis : 1;
-  const progress = duration ? position / duration : 0;
+
+  const progress = position / duration;
+
+  console.log(progress);
 
   const animatedIndicatorStyle = useAnimatedStyle(() => ({
     left: `${progress * 100}%`,
@@ -103,7 +108,7 @@ const MemoListItem = ({ uri }: MemoListProps) => {
             fontSize: 12,
           }}
         >
-          {formatMillis(position || 0)}/{formatMillis(duration || 0)}
+          {formatMillis(position || 0)} / {formatMillis(duration || 0)}
         </Text>
       </View>
     </View>
