@@ -1,23 +1,21 @@
-import { useState } from "react";
-import {
-  View,
-  StyleSheet,
-  Button,
-  FlatList,
-  Text,
-  Pressable,
-} from "react-native";
+import MemoListItem from "@/components/day6/MemoListItem";
 import { Audio } from "expo-av";
 import { Recording } from "expo-av/build/Audio";
+import { useState } from "react";
+import { FlatList, Pressable, StyleSheet, View } from "react-native";
 import Animated, {
+  interpolate,
   useAnimatedStyle,
+  useSharedValue,
+  withSpring,
   withTiming,
 } from "react-native-reanimated";
-import MemoListItem from "@/components/day6/MemoListItem";
 
 export default function MemosScreen() {
   const [recording, setRecording] = useState<Recording>();
   const [memos, setMemos] = useState<string[]>([]);
+
+  const metering = useSharedValue(-100);
 
   const [permissionResponse, requestPermission] = Audio.usePermissions();
 
@@ -38,6 +36,11 @@ export default function MemosScreen() {
       );
       setRecording(recording);
       console.log("Recording started");
+
+      recording.setOnRecordingStatusUpdate((status) => {
+        console.log(status.metering);
+        metering.value = status.metering || -100;
+      });
     } catch (err) {
       console.error("Failed to start recording", err);
     }
@@ -66,6 +69,13 @@ export default function MemosScreen() {
     borderRadius: withTiming(recording ? 5 : 35),
   }));
 
+  const animatedRecordWave = useAnimatedStyle(() => {
+    const size = withSpring(
+      interpolate(metering.value, [-160, -60, 0], [0, 0, -100])
+    );
+    return { top: size, bottom: size, left: size, right: size };
+  });
+
   return (
     <View style={styles.container}>
       <FlatList
@@ -74,12 +84,15 @@ export default function MemosScreen() {
       />
 
       <View style={styles.footer}>
-        <Pressable
-          style={styles.recordButton}
-          onPress={recording ? stopRecording : startRecording}
-        >
-          <Animated.View style={[styles.redCircle, animatedRedCircle]} />
-        </Pressable>
+        <View>
+          <Animated.View style={[styles.recordWave, animatedRecordWave]} />
+          <Pressable
+            style={styles.recordButton}
+            onPress={recording ? stopRecording : startRecording}
+          >
+            <Animated.View style={[styles.redCircle, animatedRedCircle]} />
+          </Pressable>
+        </View>
       </View>
     </View>
   );
@@ -99,18 +112,28 @@ const styles = StyleSheet.create({
   },
 
   recordButton: {
-    width: 60,
-    height: 60,
-    borderRadius: 60,
+    width: 70,
+    height: 70,
+    borderRadius: 35,
     borderWidth: 3,
     borderColor: "#ecf0f1",
     padding: 3,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "white",
+  },
+  recordWave: {
+    backgroundColor: "#ff000055",
+    position: "absolute",
+    top: -20,
+    bottom: -20,
+    right: -20,
+    left: -20,
+    borderRadius: 1000,
   },
   redCircle: {
     backgroundColor: "#ff0050",
     aspectRatio: 1,
-    borderRadius: 30,
+    borderRadius: 35,
   },
 });
