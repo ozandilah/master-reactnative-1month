@@ -1,7 +1,12 @@
-import { View, Text, StyleSheet } from "react-native";
-import React from "react";
 import TinderCard from "@/components/day7/TinderCard";
 import { Stack } from "expo-router";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, Text, View } from "react-native";
+import {
+  useAnimatedReaction,
+  useSharedValue,
+  runOnJS,
+} from "react-native-reanimated";
 
 const dummuUsers = [
   {
@@ -42,15 +47,41 @@ const dummuUsers = [
   },
 ];
 const TinderScreen = () => {
+  const [users, setUser] = useState(dummuUsers);
+  const activeIndex = useSharedValue(0);
+  const [index, setIndex] = useState(0);
+
+  useAnimatedReaction(
+    () => activeIndex.value,
+    (value) => {
+      if (Math.floor(value) !== index) {
+        runOnJS(setIndex)(Math.floor(value));
+      }
+    }
+  );
+
+  useEffect(() => {
+    if (index > users.length - 3) {
+      console.log("Last 2 cards reamining. Fetch More!");
+      setUser((user) => [...user, ...dummuUsers.reverse()]);
+    }
+  }, [index]);
+  const onResponse = (res: boolean) => {
+    console.log("ON RESPONSE: ", res);
+  };
+
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Stack.Screen options={{ headerShown: false }} />
-      {dummuUsers.map((user, index) => (
+
+      {users.map((user, index) => (
         <TinderCard
+          key={`${user.id}-${index}`}
           user={user}
-          key={user.id}
-          numOfCards={dummuUsers.length}
-          curIndex={index}
+          numOfCards={users.length}
+          index={index}
+          activeIndex={activeIndex}
+          onResponse={onResponse}
         />
       ))}
     </View>
