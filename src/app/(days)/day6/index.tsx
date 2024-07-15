@@ -18,7 +18,9 @@ Work with the microphone and audio playback
 const DayDetailScreens = () => {
   return (
     <SafeAreaView edges={["bottom"]} style={{ flex: 1 }}>
-      <Stack.Screen options={{ title: "Day 05: AirBNB Maps" }} />
+      <Stack.Screen
+        options={{ title: "Day 06: Microphone and Audio Playback Memos" }}
+      />
 
       <MarkdownDisplay>{description}</MarkdownDisplay>
 

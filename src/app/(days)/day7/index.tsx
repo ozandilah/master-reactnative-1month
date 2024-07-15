@@ -6,6 +6,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 const description = `
 # Tinder Swipe
+Let's Build Tinder Swipe Animationin React Native Using Reanimated
+
 📚 Today's Agenda :
 - Implement the tinder card
 - Animate the card swipe
@@ -15,11 +17,11 @@ const description = `
 const DayDetailScreens = () => {
   return (
     <SafeAreaView edges={["bottom"]} style={{ flex: 1 }}>
-      <Stack.Screen options={{ title: "Day 05: AirBNB Maps" }} />
+      <Stack.Screen options={{ title: "Day 07: Tinder Swipe APP" }} />
 
       <MarkdownDisplay>{description}</MarkdownDisplay>
 
-      <Link href="/day6/tinder" asChild>
+      <Link href="/day7/tinder" asChild>
         <Button title="Go to Tinder" />
       </Link>
     </SafeAreaView>
