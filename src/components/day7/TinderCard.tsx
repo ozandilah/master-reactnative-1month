@@ -1,6 +1,11 @@
 import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
 import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
+import Animated, {
+  SharedValue,
+  interpolate,
+  useAnimatedStyle,
+} from "react-native-reanimated";
 
 interface TinderInterface {
   user: {
@@ -8,22 +13,49 @@ interface TinderInterface {
     name: string;
   };
   numOfCards: number;
-  curIndex: number;
+  index: number;
+  activeIndex: SharedValue<number>;
+  translationX: SharedValue<number>;
 }
 
 export const tinderCardWith = Dimensions.get("screen").width * 0.8;
-const TinderCard = ({ user, numOfCards, curIndex }: TinderInterface) => {
+const TinderCard = ({
+  user,
+  numOfCards,
+  index,
+  activeIndex,
+}: TinderInterface) => {
+  const animatedCard = useAnimatedStyle(() => ({
+    opacity: interpolate(
+      activeIndex.value,
+      [index - 1, index, index + 1],
+      [1 - 1 / 5, 1, 1]
+    ),
+    transform: [
+      {
+        scale: interpolate(
+          activeIndex.value,
+          [index - 1, index, index + 1],
+          [0.95, 1, 1]
+        ),
+      },
+      {
+        translateY: interpolate(
+          activeIndex.value,
+          [index - 1, index, index + 1],
+          [-30, 0, 0]
+        ),
+      },
+    ],
+  }));
   return (
-    <View
+    <Animated.View
       style={[
         styles.card,
+        animatedCard,
         {
-          zIndex: numOfCards - curIndex,
-          opacity: 1 - curIndex * 0.2,
-          transform: [
-            { translateY: -curIndex * 30 },
-            { scale: 1 - curIndex * 0.05 },
-          ],
+          zIndex: numOfCards - index,
+          opacity: 1 - index * 0.2,
         },
       ]}
     >
@@ -39,7 +71,7 @@ const TinderCard = ({ user, numOfCards, curIndex }: TinderInterface) => {
       <View style={styles.footer}>
         <Text style={styles.name}> {user.name}</Text>
       </View>
-    </View>
+    </Animated.View>
   );
 };
 
