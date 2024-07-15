@@ -5,27 +5,24 @@ import { Button } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const description = `
-# Voice Memos
-
-Work with the microphone and audio playback
+# Tinder Swipe
+Let's Build Tinder Swipe Animationin React Native Using Reanimated
 
 📚 Today's Agenda :
-- Use Expo AV to record audios
-- Create an audio player
-- (Attemp) to build an audio Waveform animation
+- Implement the tinder card
+- Animate the card swipe
+- React Native Reanimated
 `;
 
 const DayDetailScreens = () => {
   return (
     <SafeAreaView edges={["bottom"]} style={{ flex: 1 }}>
-      <Stack.Screen
-        options={{ title: "Day 06: Microphone and Audio Playback Memos" }}
-      />
+      <Stack.Screen options={{ title: "Day 07: Tinder Swipe APP" }} />
 
       <MarkdownDisplay>{description}</MarkdownDisplay>
 
-      <Link href="/day6/memos" asChild>
-        <Button title="Go to memos" />
+      <Link href="/day7/tinder" asChild>
+        <Button title="Go to Tinder" />
       </Link>
     </SafeAreaView>
   );
