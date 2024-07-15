@@ -4,6 +4,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import Animated, {
   SharedValue,
   interpolate,
+  runOnJS,
   useAnimatedStyle,
   useDerivedValue,
   useSharedValue,
@@ -19,6 +20,7 @@ interface TinderInterface {
   numOfCards: number;
   index: number;
   activeIndex: SharedValue<number>;
+  onResponse: (a: boolean) => void;
 }
 const screenWidth = Dimensions.get("screen").width;
 export const tinderCardWith = screenWidth * 0.8;
@@ -27,6 +29,7 @@ const TinderCard = ({
   numOfCards,
   index,
   activeIndex,
+  onResponse,
 }: TinderInterface) => {
   const translationX = useSharedValue(0);
 
@@ -80,11 +83,11 @@ const TinderCard = ({
           velocity: event.velocityX,
         });
         activeIndex.value = withSpring(index + 1);
+        runOnJS(onResponse)(event.velocityX > 0);
       } else {
         translationX.value = withSpring(0);
       }
-    })
-    .onFinalize((event) => console.log("onFinalize:"));
+    });
   return (
     <GestureDetector gesture={gesture}>
       <Animated.View
