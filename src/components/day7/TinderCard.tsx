@@ -1,16 +1,15 @@
-import { View, Text, StyleSheet, Image, Dimensions } from "react-native";
-import React from "react";
 import { LinearGradient } from "expo-linear-gradient";
+import React from "react";
+import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
   SharedValue,
   interpolate,
   runOnJS,
   useAnimatedStyle,
-  useDerivedValue,
   useSharedValue,
   withSpring,
 } from "react-native-reanimated";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
 
 interface TinderInterface {
   user: {
