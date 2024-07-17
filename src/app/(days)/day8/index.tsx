@@ -26,7 +26,7 @@ const DayDetailScreens = () => {
       <MarkdownDisplay>{description}</MarkdownDisplay>
 
       <Link href="/day8/awsamplify" asChild>
-        <Button title="Go to Tinder" />
+        <Button title="Go to AWS Amplify Page" />
       </Link>
     </SafeAreaView>
   );
