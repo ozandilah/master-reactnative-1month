@@ -5,13 +5,13 @@ import { Button } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const description = `
-# Tinder Swipe
-Let's Build Tinder Swipe Animationin React Native Using Reanimated
+# Authentication using AWS Amplify V6
+Authentication in React Native using AWS Amplify V6
 
 📚 Today's Agenda :
-- Implement the tinder card
-- Animate the card swipe
-- React Native Reanimated
+- Set up Amplify project
+- Add Authentication to app
+- Build your custom Auth Screens
 `;
 
 const DayDetailScreens = () => {
