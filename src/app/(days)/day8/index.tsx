@@ -1,5 +1,5 @@
 import MarkdownDisplay from "@/components/day3/MarkdownDisplay";
-import { Link, Stack } from "expo-router";
+import { Link, Stack, useRouter } from "expo-router";
 import React from "react";
 import { Button } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -15,6 +15,10 @@ Authentication in React Native using AWS Amplify V6
 `;
 
 const DayDetailScreens = () => {
+  const router = useRouter();
+  const handlePress = () => {
+    router.push("/day8/awsamplify");
+  };
   return (
     <SafeAreaView edges={["bottom"]} style={{ flex: 1 }}>
       <Stack.Screen
@@ -25,9 +29,7 @@ const DayDetailScreens = () => {
 
       <MarkdownDisplay>{description}</MarkdownDisplay>
 
-      <Link href="/day8/awsamplify" asChild>
-        <Button title="Go to AWS Amplify Page" />
-      </Link>
+      <Button title="Go to AWS Amplify Page" onPress={handlePress} />
     </SafeAreaView>
   );
 };

@@ -1,17 +1,20 @@
-import { View, Text, Button } from "react-native";
-import React from "react";
-import { Link, Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
+import { Button, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const DayDetailScreens = () => {
-  return (
-    <View>
-      <Stack.Screen options={{ title: "Day 02: Onboarding" }} />
-      <Text>Day Detail Screen</Text>
+  const router = useRouter();
 
-      <Link href="/day2/onboarding" asChild>
-        <Button title="Go to onboarding" />
-      </Link>
-    </View>
+  const handlePress = () => {
+    router.push("/day2/onboarding");
+  };
+
+  return (
+    <SafeAreaView edges={["bottom"]} style={{ flex: 1 }}>
+      <Stack.Screen options={{ title: "Day 02: On-Boarding" }} />
+      <Text>Day Detail Screen</Text>
+      <Button title="Go to onboarding" onPress={handlePress} />
+    </SafeAreaView>
   );
 };
 
