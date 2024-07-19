@@ -1,4 +1,4 @@
-import { Link } from "expo-router";
+import { Link, useNavigation } from "expo-router";
 import React from "react";
 import { Pressable, StyleSheet, Text } from "react-native";
 
@@ -7,12 +7,20 @@ interface DayProps {
 }
 
 export default function DayListItem({ day }: DayProps) {
+  const navigation = useNavigation();
+
+  const handlePres = () => {
+    navigation.navigate("DayDetailScreen", { day });
+  };
   return (
-    <Link href={`/day${day}`} asChild>
-      <Pressable style={styles.box}>
-        <Text style={styles.text}>{day}</Text>
-      </Pressable>
-    </Link>
+    // <Link href={`/day${day}`} asChild>
+    //   <Pressable style={styles.box}>
+    //     <Text style={styles.text}>{day}</Text>
+    //   </Pressable>
+    // </Link>
+    <Pressable style={styles.box} onPress={handlePres}>
+      <Text style={styles.text}>{day}</Text>
+    </Pressable>
   );
 }
 const styles = StyleSheet.create({
