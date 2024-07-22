@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "React-Native-Beginner-to-Master-1month",
-    "slug": "reactnative",
+    "slug": "React-Native-Beginner-to-Master-1month",
     "scheme": "learnreactnative1month",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -19,12 +19,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.kangozandev.reactnative"
     },
     "web": {
       "favicon": "./assets/favicon.png",
       "bundler": "metro"
     },
-    "plugins": ["expo-font", "expo-router"]
+    "plugins": ["expo-font", "expo-router"],
+    "experiments": {
+      "tsconfigPaths": true
+    }
   }
 }
