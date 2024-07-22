@@ -1,5 +1,5 @@
 import MarkdownDisplay from "@/components/day3/MarkdownDisplay";
-import { Link, Stack } from "expo-router";
+import { Link, Stack, useRouter } from "expo-router";
 import React from "react";
 import { Button } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -16,6 +16,10 @@ Work with the microphone and audio playback
 `;
 
 const DayDetailScreens = () => {
+  const router = useRouter();
+  const handlePress = () => {
+    router.push("/day6/memos");
+  };
   return (
     <SafeAreaView edges={["bottom"]} style={{ flex: 1 }}>
       <Stack.Screen
@@ -24,9 +28,7 @@ const DayDetailScreens = () => {
 
       <MarkdownDisplay>{description}</MarkdownDisplay>
 
-      <Link href="/day6/memos" asChild>
-        <Button title="Go to memos" />
-      </Link>
+      <Button title="Go to memos" onPress={handlePress} />
     </SafeAreaView>
   );
 };

@@ -1,7 +1,7 @@
 import MarkdownDisplay from "@/components/day3/MarkdownDisplay";
-import { Link, Stack } from "expo-router";
+import { Link, Stack, useRouter } from "expo-router";
 import React from "react";
-import { Button } from "react-native";
+import { Button, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const description = `
@@ -14,18 +14,22 @@ const description = `
 `;
 
 const DayDetailScreens = () => {
+  const router = useRouter();
+  const handlePressAnimation = () => {
+    router.push("/day4/animation");
+  };
+  const handlePressSplash = () => {
+    router.push("/day4/splash");
+  };
   return (
     <SafeAreaView edges={["bottom"]} style={{ flex: 1 }}>
       <Stack.Screen options={{ title: "Day 04: Splash Screen" }} />
 
       <MarkdownDisplay>{description}</MarkdownDisplay>
 
-      <Link href="/day4/animation" asChild>
-        <Button title="Go to animation" />
-      </Link>
-      <Link href="/day4/splash" asChild>
-        <Button title="Splashscreen Animation" />
-      </Link>
+      <Button title="Go to animation" onPress={handlePressAnimation} />
+
+      <Button title="Splashscreen Animation" onPress={handlePressSplash} />
     </SafeAreaView>
   );
 };

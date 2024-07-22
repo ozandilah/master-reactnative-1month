@@ -10,6 +10,11 @@
       "StackName": "amplify-masterreactnative202-dev-88560",
       "StackId": "arn:aws:cloudformation:ap-southeast-1:312159422463:stack/amplify-masterreactnative202-dev-88560/8b62c1d0-44d6-11ef-a4fc-02a36c223cb1",
       "AmplifyAppId": "d35t5zlyrzaip1"
+    },
+    "categories": {
+      "auth": {
+        "masterreactnative20286b5749f": {}
+      }
     }
   }
 }
