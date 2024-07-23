@@ -16,9 +16,8 @@ import { Stack } from "expo-router";
 import { useEffect, useState } from "react";
 import Animated, { FadeIn } from "react-native-reanimated";
 
-import { Authenticator } from "@aws-amplify/ui-react-native";
-import { Amplify } from "aws-amplify";
 import amplifyconfig from "@/amplifyconfiguration.json";
+import { Amplify } from "aws-amplify";
 Amplify.configure(amplifyconfig);
 // SplashScreen.preventAutoHideAsync();
 export default function RootLayout() {
