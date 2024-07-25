@@ -12,6 +12,8 @@ Authentication in React Native using AWS Amplify V6
 - Set up Amplify project
 - Add Authentication to app
 - Build your custom Auth Screens
+- Portfolio amplify aws feature
+- Day Breakchain
 `;
 
 const DayDetailScreens = () => {
